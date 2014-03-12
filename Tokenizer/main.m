@@ -21,6 +21,13 @@ int main(int argc, const char * argv[])
         NSLog(@"Hello, World! - START");
 
         Test();
+        
+//        बीबीसी हिंदी डॉटकॉम पर भारत, पाकिस्तान और चीन सहित 
+//        NSString *uni2=[[NSString alloc] initWithUTF8String:"दुनिया भर की ताज़ा ख़बरें"];
+        NSString *uni2=[[NSString alloc] initWithUTF8String:"Esto es manoj, poniendo a prueba este código"];
+        
+        unicodeTokens([uni2 cStringUsingEncoding:NSUTF8StringEncoding]);
+        
         NSLog(@"Hello, World! - END");
     }
     return 0;
