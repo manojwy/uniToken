@@ -24,8 +24,9 @@ int main(int argc, const char * argv[])
         
 //        बीबीसी हिंदी डॉटकॉम पर भारत, पाकिस्तान और चीन सहित 
 //        NSString *uni2=[[NSString alloc] initWithUTF8String:"दुनिया भर की ताज़ा ख़बरें"];
-        NSString *uni2=[[NSString alloc] initWithUTF8String:"Esto es manoj, poniendo a prueba este código"];
-        
+//        NSString *uni2=[[NSString alloc] initWithUTF8String:"Esto es manoj, poniendo a prueba este código"];
+//        NSString *uni2=[[NSString alloc] initWithUTF8String:"التفاح والعنب"];
+        NSString *uni2=[[NSString alloc] initWithUTF8String:"ಆಪಲ್ಸ್ ಮತ್ತು ಗ್ರೇಪ್ಸ್"];
         unicodeTokens([uni2 cStringUsingEncoding:NSUTF8StringEncoding]);
         
         NSLog(@"Hello, World! - END");

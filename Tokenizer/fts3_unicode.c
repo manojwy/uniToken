@@ -409,8 +409,7 @@ int unicodeTokens(char* utf){
     
     while(z) {
     
-        
-    
+        memset(token, '\0', 1000);
     const unsigned char *zStart = z;
     const unsigned char *zEnd;
     const unsigned char *zTerm = (const unsigned char *)&str[strlen(str)];
@@ -428,21 +427,9 @@ int unicodeTokens(char* utf){
     zOut = &token[0];
     do {
         int iOut;
-        
-//        /* Grow the output buffer if required. */
-//        if( (zOut-pCsr->zToken)>=(pCsr->nAlloc-4) ){
-//            //      char *zNew = sqlite3_realloc(pCsr->zToken, pCsr->nAlloc+64);
-//            char *zNew = realloc(pCsr->zToken, pCsr->nAlloc+64);
-//            
-//            if( !zNew ) return SQLITE_NOMEM;
-//            zOut = &zNew[zOut - pCsr->zToken];
-//            pCsr->zToken = zNew;
-//            pCsr->nAlloc += 64;
-//        }
-        
         /* Write the folded case of the last character read to the output */
         zEnd = z;
-        iOut = sqlite3FtsUnicodeFold(iCode, 0);
+        iOut = sqlite3FtsUnicodeFold(iCode, 1);
         if( iOut ){
             WRITE_UTF8(zOut, iOut);
         }
@@ -453,26 +440,12 @@ int unicodeTokens(char* utf){
         /* If the cursor is not at EOF, read the next character */
         if( z>=zTerm ) break;
         READ_UTF8(z, zTerm, iCode);
+        
+        //printf(": [%s]\n", token);
     }while( unicodeIsAlnum(iCode)
            || sqlite3FtsUnicodeIsdiacritic(iCode)
            );
-    
-        
-//        printf("%d - %d, [%d]\n", unicodeIsAlnum(iCode), sqlite3FtsUnicodeIsdiacritic(iCode), iCode);
-        {
-            int l = z-zStart;
-//            if(isspace(zStart[l-1])) {
-//                l -= 1;
-//            }
-            
-//            printf("sqlite3FtsUnicodeIsalnum: %d\n", sqlite3FtsUnicodeIsalnum(zStart[l-1]));
-            if (sqlite3FtsUnicodeIsalnum(zStart[l-1]) == 0) {
-                l -= 1;
-            }
-            strncpy(tkn, zStart, l);
-            tkn[l]='\0';
-        }
-    printf("TOKEN: [%s]\n", tkn);
+        printf("TOKEN: [%s]\n", token);
     }
     /* Set the output variables and return. */
 //    pCsr->iOff = (z - pCsr->aInput);
